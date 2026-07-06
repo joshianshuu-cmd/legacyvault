@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/mint", label: "Mint Heirloom" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
