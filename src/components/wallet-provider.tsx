@@ -7,7 +7,8 @@ import { http } from 'wagmi';
 import {
   getDefaultConfig,
   RainbowKitProvider,
-  ConnectButton
+  ConnectButton,
+  darkTheme
 } from '@rainbow-me/rainbowkit';
 import {
   mainnet,
@@ -68,7 +69,14 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider 
+          theme={darkTheme({
+            accentColor: '#7c3aed',
+            accentColorForeground: 'white',
+            borderRadius: 'medium',
+            fontStack: 'system',
+          })}
+        >
           <WalletProviderContent>{children}</WalletProviderContent>
         </RainbowKitProvider>
       </QueryClientProvider>
