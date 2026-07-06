@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { Gem, Menu, User, Wallet } from "lucide-react";
-import { useWallet } from "../wallet-provider";
+import { Gem, Menu } from "lucide-react";
+import { ConnectButton } from "../wallet-provider";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -20,9 +20,6 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isConnected, address, connectWallet, disconnectWallet } = useWallet();
-
-  const truncateAddress = (addr: `0x${string}`) => `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
@@ -47,17 +44,7 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-4">
           <div className="hidden md:block">
-            {isConnected && address ? (
-              <Button onClick={disconnectWallet} variant="outline">
-                <User className="mr-2 h-4 w-4" />
-                {truncateAddress(address)}
-              </Button>
-            ) : (
-              <Button onClick={connectWallet}>
-                <Wallet className="mr-2 h-4 w-4" />
-                Connect Wallet
-              </Button>
-            )}
+            <ConnectButton />
           </div>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
@@ -91,17 +78,9 @@ export default function Header() {
                   ))}
                 </nav>
                 <div className="mt-auto">
-                  {isConnected && address ? (
-                    <Button onClick={() => { disconnectWallet(); setIsMobileMenuOpen(false); }} variant="secondary" className="w-full">
-                      <User className="mr-2 h-4 w-4" />
-                      {truncateAddress(address)}
-                    </Button>
-                  ) : (
-                    <Button onClick={() => { connectWallet(); setIsMobileMenuOpen(false); }} className="w-full">
-                      <Wallet className="mr-2 h-4 w-4" />
-                      Connect Wallet
-                    </Button>
-                  )}
+                  <div onClick={() => setIsMobileMenuOpen(false)}>
+                    <ConnectButton />
+                  </div>
                 </div>
               </div>
             </SheetContent>

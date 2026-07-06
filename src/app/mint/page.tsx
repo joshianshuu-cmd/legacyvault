@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateHeirloomStory } from "@/ai/flows/generate-heirloom-story";
 import { Upload, Sparkles, Loader2, FileImage, Gem } from "lucide-react";
 import Image from "next/image";
-import { useWallet } from "@/components/wallet-provider";
+import { useWallet, ConnectButton } from "@/components/wallet-provider";
 import { useHeirloomContract } from "@/hooks/use-heirloom-contract";
 import { uploadToIpfs } from "./actions";
 
@@ -95,7 +95,6 @@ export default function MintPage() {
           title: "Wallet Not Connected",
           description: "Please connect your wallet to mint an heirloom.",
       });
-      connectWallet();
       return;
     }
     if (!preview) {

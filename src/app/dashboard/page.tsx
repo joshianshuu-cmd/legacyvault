@@ -10,7 +10,7 @@ import Link from "next/link";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Lock, Edit, Share2, GitBranch, Loader2, EyeOff, ChevronLeft, ChevronRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useWallet } from "@/components/wallet-provider";
+import { useWallet, ConnectButton } from "@/components/wallet-provider";
 import { useReadContract, useReadContracts } from "wagmi";
 import HeirloomABI from "@/lib/abi/Heirloom.json";
 import { type Address } from "viem";
@@ -201,7 +201,7 @@ const useOwnedHeirlooms = (address: Address | undefined) => {
 
 
 export default function DashboardPage() {
-    const { isConnected, address, connectWallet } = useWallet();
+    const { isConnected, address } = useWallet();
     const { heirlooms, isLoading, count, currentPage, totalPages, setCurrentPage } = useOwnedHeirlooms(address);
 
   if (!isConnected) {
@@ -216,9 +216,7 @@ export default function DashboardPage() {
                     <p className="text-muted-foreground mt-2 max-w-md mx-auto">
                     Please connect your wallet to view your personal dashboard and manage your digital heirlooms.
                     </p>
-                    <Button onClick={connectWallet} className="mt-6 text-lg" size="lg">
-                    Connect Wallet
-                    </Button>
+                    <ConnectButton className="mt-6 text-lg" />
                 </CardContent>
             </Card>
         </div>
